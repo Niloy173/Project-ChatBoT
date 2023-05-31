@@ -1,6 +1,6 @@
 const request = require('request');
 
-const {getFacebookUsername, sendResponseWelcomeNewCustomer} = require("../utils/chatBotService");
+const {sendMainMenu, getFacebookUsername, sendResponseWelcomeNewCustomer} = require("../utils/chatBotService");
 
 let getWebhook = (req,res,next) => {
 
@@ -133,10 +133,10 @@ let handlePostback = async (sender_psid, received_postback) => {
       // response = { "text": `Welcome ${username} to The Dinner 💜`};
       break;
 
-      // case "MAIN_MENU":
-      //   //send main menu to users
-      //   await chatBotService.sendMainMenu(sender_psid);
-      //   break;
+      case "MAIN_MENU":
+        //send main menu to users
+        await sendMainMenu(sender_psid);
+        break;
       // case "GUIDE_BOT":
       //   await homepageService.sendGuideToUseBot(sender_psid);
       //   break;
