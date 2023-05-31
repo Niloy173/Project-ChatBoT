@@ -75,7 +75,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
 
 let sendMainMenu = (sender_psid) => {
 
-  try {
+  
     return new Promise(async (resolve, reject) => {
       try {
         
@@ -155,37 +155,42 @@ let sendMainMenu = (sender_psid) => {
       } catch (error) {
         reject(error);
       }
-    })
-  } catch (error) {
-    
-  }
+    });
+ 
   
 }
 
 let sendMessage = (sender_psid, response) => {
   
-  console.log(response);
+  console.log(response.payload.elements);
 
-  let request_body = {
-    "recipient": {
-      "id": sender_psid
-    },
-    "message": response
-  }
-
-  // Send the HTTP request to the Messenger Platform
-  request({
-    "uri": "https://graph.facebook.com/v17.0/me/messages",
-    "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('message sent!')
-    } else {
-      console.error("Unable to send message:" + err);
+  return new Promise((resolve, reject) => {
+    try {
+      let request_body = {
+        "recipient": {
+          "id": sender_psid
+        },
+        "message": response
+      }
+    
+      // Send the HTTP request to the Messenger Platform
+      request({
+        "uri": "https://graph.facebook.com/v2.6/me/messages",
+        "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+        "method": "POST",
+        "json": request_body
+      }, (err, res, body) => {
+        if (!err) {
+          console.log('message sent!');
+          resolve("done!");
+        } else {
+          reject("Unable to send message:" + err);
+        }
+      });       
+    } catch (error) {
+      reject(error);
     }
-  }); 
+  })
 }
 
 module.exports = {
