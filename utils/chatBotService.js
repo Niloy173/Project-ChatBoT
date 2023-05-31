@@ -26,7 +26,7 @@ function getFacebookUsername(sender_psid) {
   });
 }
 
-
+// Inital Get Started Button Response
 let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
 
   return new Promise(async (resolve, reject) => {
@@ -73,7 +73,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
     // send a welcome large  message
     await sendMessage(sender_psid, response_second);
 
-   resolve("done!");
+    resolve("done!");
 
     } catch (error) {
       reject(error)
@@ -82,7 +82,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
   });
 }
 
-
+// Main Menu Button
 let sendMainMenu = (sender_psid) => {
 
   
@@ -98,7 +98,7 @@ let sendMainMenu = (sender_psid) => {
                 {
                   "title": "Our Menus",
                   "subtitle": "We are pleased to offer you a whole-range of menu for lunch or dinner.",
-                  "image_url": "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                  "image_url": "https://images.template.net/wp-content/uploads/2017/07/lore-beer-pub-1-1.jpg",
                   "buttons": [
                     {
                       "type": "postback",
@@ -167,6 +167,300 @@ let sendMainMenu = (sender_psid) => {
   
 }
 
+// Show the Lunch Menu Details
+let sendLunchMenu = (sender_psid) => {
+
+  return new Promise(async (resolve, reject) => {
+    try {
+
+      let response = {
+
+          "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "Appetizers",
+                        "image_url": "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=775&q=80",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "SHOW APPETIZERS",
+                                "payload": "SHOW_APPETIZERS",
+                            }
+                        ],
+                    },
+
+                    {
+                        "title": "Entree Salad",
+                        "image_url": "https://images.unsplash.com/photo-1505576633757-0ac1084af824?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "SHOW ENTREE SALAD",
+                                "payload": "SHOW_ENTREE_SALAD",
+                            }
+                        ],
+                    },
+
+                    {
+                        "title": "Fish and Shell Fish",
+                        "image_url": "https://images.unsplash.com/photo-1517115358639-5720b8e02219?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1174&q=80",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "SHOW FISH",
+                                "payload": "SHOW_FISH",
+                            }
+                        ],
+                    },
+
+                    {
+                        "title": "Skeens Classics",
+                        "subtitle": "Dry-aged on Premise",
+                        "image_url": "",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "SHOW CLASSICS",
+                                "payload": "SHOW_CLASSICS",
+                            }
+                        ],
+                    },
+
+                    {
+                        "title": "Go back",
+                        "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "BACK TO MAIN MENU",
+                                "payload": "BACK_TO_MAIN_MENU",
+                            },
+                            {
+                                "type": "postback",
+                                "title": "RESERVE A TABLE",
+                                "payload": "RESERVE_TABLE",
+                            }
+                        ],
+                    }
+                ]
+            }
+        }
+      }
+
+      await sendMessage(sender_psid, response);
+      resolve("done");
+
+    } catch (error) {
+      reject(error);  
+    }
+
+  });
+}
+
+// Show the Dinner Menu Details
+let sendDinnerMenu = (sender_psid) => {
+
+  return new Promise(async (resolve, reject) => {
+      
+      try {
+          let response1 = {
+              "text": "Lump crab cocktail\n$25.00"
+          };
+          let response2 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": "https://djfoodie.com/wp-content/uploads/Crab-Cocktail-3-800.jpg"
+                  }
+              }
+          };
+
+          let response3 = {
+              "text": "House cured salmon\n$16.00"
+          };
+          let response4 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": "https://www.thespruceeats.com/thmb/rys3IyH2DB6Ma_r4IQ6emN-2jYw=/4494x3000/filters:fill(auto,1)/simple-homemade-gravlax-recipe-2216618_hero-01-592dadcba64743f98aa1f7a14f81d5b4.jpg"
+                  }
+              }
+          };
+
+          let response5 = {
+              "text": "Steamed Whole Maine Lobsters\n$35.00"
+          };
+          let response6 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": "https://portcitydaily.com/wp-content/uploads/For-the-Shell-of-It.jpg"
+                  }
+              }
+          };
+
+          let response7 = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "button",
+                      "text": `Back to main menu or make a reservation ?`,
+                      "buttons": [
+                          {
+                              "type": "postback",
+                              "title": "SHOW MAIN MENU",
+                              "payload": "MAIN_MENU"
+                          },
+                          {
+                              "type": "postback",
+                              "title": "RESERVE A TABLE",
+                              "payload": "RESERVE_TABLE",
+                          }
+                      ]
+                  }
+              }
+          };
+
+         
+          await sendMessage(sender_psid, response1);
+
+         
+          await sendMessage(sender_psid, response2);
+
+          
+          await sendMessage(sender_psid, response3);
+
+          
+          await sendMessage(sender_psid, response4);
+
+         
+          await sendMessage(sender_psid, response5);
+
+         
+          await sendMessage(sender_psid, response6);
+
+         
+          await sendMessage(sender_psid, response7);
+
+          resolve("done");
+
+      } catch (e) {
+          reject(e);
+      }
+  });
+}
+
+// Show the Pub Service Details
+let sendPubMenu = (sender_psid) => {
+
+  return new Promise(async (resolve, reject) => {
+    try {
+        let response1 = {
+            "text": "Hamburger with French Fries\n$19.50"
+        };
+        let response2 = {
+            "attachment": {
+                "type": "image",
+                "payload": {
+                    "url": "https://previews.123rf.com/images/genmike/genmike1411/genmike141100010/33951440-burger-and-french-fries.jpg"
+                }
+            }
+        };
+
+        let response3 = {
+            "text": "Ham and Cheese on a Baguette as Salad or Sandwich\n$21.00"
+        };
+        let response4 = {
+            "attachment": {
+                "type": "image",
+                "payload": {
+                    "url": "https://s3-ap-southeast-1.amazonaws.com/v3-live.image.oddle.me/product/Blackforesthamcheesebfd18d.jpg"
+                }
+            }
+        };
+
+        let response5 = {
+            "text": "Braised short rib salad\n$29.50"
+        };
+        let response6 = {
+            "attachment": {
+                "type": "image",
+                "payload": {
+                    "url": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/ribs_0.jpg?itok=bOf0t_NF"
+                }
+            }
+        };
+
+        let response7 = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": `Back to main menu or make a reservation ?`,
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "SHOW MAIN MENU",
+                            "payload": "MAIN_MENU"
+                        },
+                        {
+                            "type": "postback",
+                            "title": "RESERVE A TABLE",
+                            "payload": "RESERVE_TABLE",
+                        }
+                    ]
+                }
+            }
+        };
+
+        
+        await sendMessage(sender_psid, response1);
+
+        
+        await sendMessage(sender_psid, response2);
+
+        
+        await sendMessage(sender_psid, response3);
+
+        
+        await sendMessage(sender_psid, response4);
+
+        
+        await sendMessage(sender_psid, response5);
+
+        
+        await sendMessage(sender_psid, response6);
+
+        
+        await sendMessage(sender_psid, response7);
+
+        resolve("done");
+
+    } catch (e) {
+        reject(e);
+    }
+});
+
+}
+
+let handleReserveTable = (sender_psid) => {
+
+}
+
+let handleShowRooms = (sender_psid) => {
+
+}
+
+// Go Back to main menu
+// let goBackToMainMenu = (sender_psid) => {
+//   sendMainMenu(sender_psid);
+// };
+
+
+// Send Message to indiviual recepients
 let sendMessage = (sender_psid, response) => {
   
   // console.log(`sender id ${sender_psid}`);
@@ -204,5 +498,10 @@ let sendMessage = (sender_psid, response) => {
 module.exports = {
   getFacebookUsername,
   sendResponseWelcomeNewCustomer,
-  sendMainMenu
+  sendMainMenu,
+  sendLunchMenu,
+  sendDinnerMenu,
+  sendPubMenu,
+  handleReserveTable,
+  handleShowRooms,
 }

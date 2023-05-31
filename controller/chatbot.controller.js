@@ -1,6 +1,14 @@
 const request = require('request');
 
-const {sendMainMenu, getFacebookUsername, sendResponseWelcomeNewCustomer} = require("../utils/chatBotService");
+const {sendMainMenu, 
+  getFacebookUsername, 
+  sendResponseWelcomeNewCustomer,
+  sendLunchMenu,
+  sendDinnerMenu,
+  sendPubMenu,
+  handleReserveTable,
+  handleShowRooms,
+  } = require("../utils/chatBotService");
 
 let getWebhook = (req,res,next) => {
 
@@ -138,23 +146,23 @@ let handlePostback = async (sender_psid, received_postback) => {
         await sendMainMenu(sender_psid);
         break;
       // case "GUIDE_BOT":
-      //   await homepageService.sendGuideToUseBot(sender_psid);
+      //   await sendGuideToUseBot(sender_psid);
       //   break;
-      // case "LUNCH_MENU":
-      //   await chatBotService.sendLunchMenu(sender_psid);
-      //   break;
-      // case "DINNER_MENU":
-      //   await chatBotService.sendDinnerMenu(sender_psid);
-      //   break;
-      // case "PUB_MENU":
-      //   await chatBotService.sendPubMenu(sender_psid);
-      //   break;
-      // case "RESERVE_TABLE":
-      //   await chatBotService.handleReserveTable(sender_psid);
-      //   break;
-      // case "SHOW_ROOMS":
-      //   await chatBotService.handleShowRooms(sender_psid);
-      //   break;
+      case "LUNCH_MENU":
+        await sendLunchMenu(sender_psid);
+        break;
+      case "DINNER_MENU":
+        await sendDinnerMenu(sender_psid);
+        break;
+      case "PUB_MENU":
+        await sendPubMenu(sender_psid);
+        break;
+      case "RESERVE_TABLE":
+        await handleReserveTable(sender_psid);
+        break;
+      case "SHOW_ROOMS":
+        await handleShowRooms(sender_psid);
+        break;
       // case "SHOW_ROOM_DETAIL":
       //   await chatBotService.showRoomDetail(sender_psid);
       //   break;
@@ -172,9 +180,9 @@ let handlePostback = async (sender_psid, received_postback) => {
       //   await chatBotService.sendClassic(sender_psid);
       //   break;
 
-      // case "BACK_TO_MAIN_MENU":
-      //   await chatBotService.goBackToMainMenu(sender_psid);
-      //   break;
+      case "BACK_TO_MAIN_MENU":
+        await sendMainMenu(sender_psid);
+        break;
       // case "BACK_TO_LUNCH_MENU":
       //   await chatBotService.goBackToLunchMenu(sender_psid);
       //   break;
