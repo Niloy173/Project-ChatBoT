@@ -377,7 +377,7 @@ let sendPubMenu = (sender_psid) => {
             "attachment": {
                 "type": "image",
                 "payload": {
-                    "url": "https://s3-ap-southeast-1.amazonaws.com/v3-live.image.oddle.me/product/Blackforesthamcheesebfd18d.jpg"
+                    "url": "https://unpeeledjournal.com/wp-content/uploads/2020/09/50371473232_3b952086a0_c-1.jpg"
                 }
             }
         };
@@ -389,7 +389,7 @@ let sendPubMenu = (sender_psid) => {
             "attachment": {
                 "type": "image",
                 "payload": {
-                    "url": "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/ribs_0.jpg?itok=bOf0t_NF"
+                    "url": "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F19%2F2015%2F06%2F22%2Fshort-ribs-cucumber-orange-salad-ck.jpg"
                 }
             }
         };
