@@ -133,15 +133,61 @@ let handlePostback = async (sender_psid, received_postback) => {
       // response = { "text": `Welcome ${username} to The Dinner 💜`};
       break;
 
-    case 'yes':
-      response = { "text": "Thanks!" }
-      callSendAPI(sender_psid, response);
-      break;
+      // case "MAIN_MENU":
+      //   //send main menu to users
+      //   await chatBotService.sendMainMenu(sender_psid);
+      //   break;
+      // case "GUIDE_BOT":
+      //   await homepageService.sendGuideToUseBot(sender_psid);
+      //   break;
+      // case "LUNCH_MENU":
+      //   await chatBotService.sendLunchMenu(sender_psid);
+      //   break;
+      // case "DINNER_MENU":
+      //   await chatBotService.sendDinnerMenu(sender_psid);
+      //   break;
+      // case "PUB_MENU":
+      //   await chatBotService.sendPubMenu(sender_psid);
+      //   break;
+      // case "RESERVE_TABLE":
+      //   await chatBotService.handleReserveTable(sender_psid);
+      //   break;
+      // case "SHOW_ROOMS":
+      //   await chatBotService.handleShowRooms(sender_psid);
+      //   break;
+      // case "SHOW_ROOM_DETAIL":
+      //   await chatBotService.showRoomDetail(sender_psid);
+      //   break;
+      // case "SHOW_APPETIZERS":
+      //   await chatBotService.sendAppetizer(sender_psid);
+      //   break;
+
+      // case "SHOW_ENTREE_SALAD":
+      //   await chatBotService.sendSalad(sender_psid);
+      //   break;
+      // case "SHOW_FISH":
+      //   await chatBotService.sendFish(sender_psid);
+      //   break;
+      // case "SHOW_CLASSICS":
+      //   await chatBotService.sendClassic(sender_psid);
+      //   break;
+
+      // case "BACK_TO_MAIN_MENU":
+      //   await chatBotService.goBackToMainMenu(sender_psid);
+      //   break;
+      // case "BACK_TO_LUNCH_MENU":
+      //   await chatBotService.goBackToLunchMenu(sender_psid);
+      //   break;
+
+      case 'yes':
+        response = { "text": "Thanks!" }
+        callSendAPI(sender_psid, response);
+        break;
     
-    case 'no':
-      response = { "text": "Oops, try sending another image." }
-      callSendAPI(sender_psid, response);
-      break;
+      case 'no':
+        response = { "text": "Oops, try sending another image." }
+        callSendAPI(sender_psid, response);
+        break;
     
     default:
       console.log("Something went wrong with the switch case");

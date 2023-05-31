@@ -39,13 +39,13 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
           "template_type": "generic",
           "elements": [{
             "title": "The Diner Restaurant",
-            "subtitle": "We are always here to serve you",
+            "subtitle": "We are always here to serve you. check out our menu.",
             "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
             "buttons": [
               {
                 "type": "postback",
-                "title": "CheckOut Our Menu",
-                "payload": "MENU",
+                "title": "Main Menu",
+                "payload": "MAIN_MENU",
               }
             ],
           }]
