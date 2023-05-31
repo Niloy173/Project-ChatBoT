@@ -58,7 +58,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
       }
 
     // send a welcome message
-    await sendMessage(sender_psid, response_first);
+    //await sendMessage(sender_psid, response_first);
 
     // send a welcome large  message
     await sendMessage(sender_psid, response_second);
