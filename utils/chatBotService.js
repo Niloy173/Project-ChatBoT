@@ -43,8 +43,8 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                 "elements": [
                     {
                         "title": "The Diner Restaurant",
-                        "subtitle": "My restaurant is legendary, its classic wine collection equally so.",
-                        "image_url": "https://drive.google.com/file/d/1vL4ZezihVBaavZmlWxvPJ3kDNhB3j2RH/view?usp=sharing",
+                        "subtitle": "We are always here to serve you.",
+                        "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
                         "buttons": [
                             {
                                 "type": "postback",
@@ -68,12 +68,12 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
       }
 
     // send a welcome message
-    //await sendMessage(sender_psid, response_first);
+    await sendMessage(sender_psid, response_first);
 
     // send a welcome large  message
     await sendMessage(sender_psid, response_second);
 
-    // resolve("done!");
+   resolve("done!");
 
     } catch (error) {
       reject(error)
@@ -98,7 +98,7 @@ let sendMainMenu = (sender_psid) => {
                 {
                   "title": "Our Menus",
                   "subtitle": "We are pleased to offer you a whole-range of menu for lunch or dinner.",
-                  "image_url": "https://drive.google.com/file/d/1EkqbmoIsI6XI81iWlsw10SpMY4mTDrhT/view?usp=sharing",
+                  "image_url": "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
                   "buttons": [
                     {
                       "type": "postback",
@@ -122,11 +122,7 @@ let sendMainMenu = (sender_psid) => {
 
                 {
                   "title": "Hours",
-                  "subtitle": `
-                            MON-FRI 10:00AM - 11:00PM
-                            SAT 5PM - 10:00PM
-                            SUN 5PM - 9:00PM      
-                              `,
+                  "subtitle": `MON-FRI 10AM - 11PM  | SAT 5PM - 10PM | SUN 5PM - 9PM`,
                   "image_url": "https://images.unsplash.com/photo-1514371879740-2e7d2068f502?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
                   "buttons": [
                     {
@@ -139,6 +135,7 @@ let sendMainMenu = (sender_psid) => {
 
                 {
                   "title": "Banquet Rooms",
+                  "subtitle": "A place that tells a story.",
                   "image_url": "https://images.unsplash.com/photo-1572803089768-1b990231961a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
                   "buttons": [
                     {
@@ -158,7 +155,7 @@ let sendMainMenu = (sender_psid) => {
 
         await sendMessage(sender_psid, response);
 
-        // resolve("done!");
+        resolve("done!");
 
 
     
