@@ -1,6 +1,6 @@
 const request = require('request');
 
-const {getFacebookUsername} = require("../utils/chatBotService");
+const {getFacebookUsername, sendResponseWelcomeNewCustomer} = require("../utils/chatBotService");
 
 let getWebhook = (req,res,next) => {
 
@@ -128,22 +128,26 @@ let handlePostback = async (sender_psid, received_postback) => {
 
       //get username
       const username = await getFacebookUsername(sender_psid);
-      response = { "text": `Welcome ${username} to The Dinner 💜`};
+      await sendResponseWelcomeNewCustomer(username,sender_psid);
+      
+      // response = { "text": `Welcome ${username} to The Dinner 💜`};
       break;
 
     case 'yes':
       response = { "text": "Thanks!" }
+      callSendAPI(sender_psid, response);
       break;
     
     case 'no':
       response = { "text": "Oops, try sending another image." }
+      callSendAPI(sender_psid, response);
       break;
     
     default:
       console.log("Something went wrong with the switch case");
   }
   // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
+  // callSendAPI(sender_psid, response);
 }
 
 // Sends response messages via the Send API
