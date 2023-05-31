@@ -5,9 +5,9 @@ let {postWebhook,getWebhook} = require("../controller/chatbot.controller");
 
 let router = express.Router();
 
-router.get("/webhooks", getWebhook);
+router.get("/webhook", getWebhook);
 
-router.get("/webhooks", postWebhook);
+router.post("/webhook", postWebhook);
 
 
 module.exports = {
