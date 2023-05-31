@@ -684,6 +684,9 @@ module.exports = {
   sendDinnerMenu,
   sendPubMenu,
   sendAppetizer,
+  sendSalad,
+  sendFish,
+  sendClassic,
   handleReserveTable,
   handleShowRooms,
 }
