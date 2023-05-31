@@ -63,7 +63,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
     // send a welcome large  message
     await sendMessage(sender_psid, response_second);
 
-    resolve("done!");
+    // resolve("done!");
 
     } catch (error) {
       reject(error)
@@ -172,7 +172,7 @@ let sendMainMenu = (sender_psid) => {
 
         await sendMessage(sender_psid, response);
 
-        resolve("done!");
+        // resolve("done!");
 
 
     
