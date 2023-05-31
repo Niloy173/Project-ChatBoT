@@ -169,8 +169,8 @@ let sendMainMenu = (sender_psid) => {
 
 let sendMessage = (sender_psid, response) => {
   
-  console.log(`sender id ${sender_psid}`);
-  console.log(response.attachment.payload.elements);
+  // console.log(`sender id ${sender_psid}`);
+  // console.log(response.attachment.payload.elements);
 
   return new Promise((resolve, reject) => {
     try {
