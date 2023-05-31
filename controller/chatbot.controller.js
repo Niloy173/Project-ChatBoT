@@ -6,6 +6,7 @@ const {sendMainMenu,
   sendLunchMenu,
   sendDinnerMenu,
   sendPubMenu,
+  sendAppetizer,
   handleReserveTable,
   handleShowRooms,
   } = require("../utils/chatBotService");
@@ -166,9 +167,9 @@ let handlePostback = async (sender_psid, received_postback) => {
       // case "SHOW_ROOM_DETAIL":
       //   await chatBotService.showRoomDetail(sender_psid);
       //   break;
-      // case "SHOW_APPETIZERS":
-      //   await chatBotService.sendAppetizer(sender_psid);
-      //   break;
+      case "SHOW_APPETIZERS":
+        await sendAppetizer(sender_psid);
+        break;
 
       // case "SHOW_ENTREE_SALAD":
       //   await chatBotService.sendSalad(sender_psid);
@@ -183,9 +184,9 @@ let handlePostback = async (sender_psid, received_postback) => {
       case "BACK_TO_MAIN_MENU":
         await sendMainMenu(sender_psid);
         break;
-      // case "BACK_TO_LUNCH_MENU":
-      //   await chatBotService.goBackToLunchMenu(sender_psid);
-      //   break;
+      case "BACK_TO_LUNCH_MENU":
+        await sendLunchMenu(sender_psid);
+        break;
 
       case 'yes':
         response = { "text": "Thanks!" }

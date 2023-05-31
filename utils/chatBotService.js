@@ -135,7 +135,7 @@ let sendMainMenu = (sender_psid) => {
 
                 {
                   "title": "Banquet Rooms",
-                  "subtitle": "A place that tells a story.",
+                  "subtitle": "Restaurant accommodates up to 200 seated guests and similar at cocktail receptions",
                   "image_url": "https://images.unsplash.com/photo-1572803089768-1b990231961a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
                   "buttons": [
                     {
@@ -219,7 +219,7 @@ let sendLunchMenu = (sender_psid) => {
                     {
                         "title": "Skeens Classics",
                         "subtitle": "Dry-aged on Premise",
-                        "image_url": "",
+                        "image_url": "https://bestthingstodoinyork.co.uk/wp-content/uploads/2021/07/Tomahawk-Steak-Restaurant-York-5.jpg",
                         "buttons": [
                             {
                                 "type": "postback",
@@ -266,48 +266,43 @@ let sendDinnerMenu = (sender_psid) => {
   return new Promise(async (resolve, reject) => {
       
       try {
-          let response1 = {
-              "text": "Lump crab cocktail\n$25.00"
-          };
-          let response2 = {
+
+          let response = {
               "attachment": {
-                  "type": "image",
+                  "type": "template",
                   "payload": {
-                      "url": "https://djfoodie.com/wp-content/uploads/Crab-Cocktail-3-800.jpg"
+
+                      "template_type": "generic",
+                      elements: [
+                        {
+                          "title": "Lump crab cocktail",
+                          "subtitle": "$25.00",
+                          "image_url": "https://djfoodie.com/wp-content/uploads/Crab-Cocktail-3-800.jpg"
+                        },
+                        {
+                          "title": "House cured salmon",
+                          "subtitle": "$16.00",
+                          "image_url": "https://www.thespruceeats.com/thmb/rys3IyH2DB6Ma_r4IQ6emN-2jYw=/4494x3000/filters:fill(auto,1)/simple-homemade-gravlax-recipe-2216618_hero-01-592dadcba64743f98aa1f7a14f81d5b4.jpg"
+                        },
+                        {
+                          "title": "Steamed Whole Maine Lobsters",
+                          "subtitle":"$35.00",
+                          "image_url": "https://popmenucloud.com/cdn-cgi/image/width=1920,height=1920,format=auto,fit=scale-down/dcbkxuzi/ce7a0686-5270-4cce-913c-7abb970bb3ed.jpg"
+
+                        }
+                      ]
+                      
                   }
               }
           };
 
-          let response3 = {
-              "text": "House cured salmon\n$16.00"
-          };
-          let response4 = {
-              "attachment": {
-                  "type": "image",
-                  "payload": {
-                      "url": "https://www.thespruceeats.com/thmb/rys3IyH2DB6Ma_r4IQ6emN-2jYw=/4494x3000/filters:fill(auto,1)/simple-homemade-gravlax-recipe-2216618_hero-01-592dadcba64743f98aa1f7a14f81d5b4.jpg"
-                  }
-              }
-          };
 
-          let response5 = {
-              "text": "Steamed Whole Maine Lobsters\n$35.00"
-          };
-          let response6 = {
-              "attachment": {
-                  "type": "image",
-                  "payload": {
-                      "url": "https://portcitydaily.com/wp-content/uploads/For-the-Shell-of-It.jpg"
-                  }
-              }
-          };
-
-          let response7 = {
+          let response_options = {
               "attachment": {
                   "type": "template",
                   "payload": {
                       "template_type": "button",
-                      "text": `Back to main menu or make a reservation ?`,
+                      "text": `Back to main menu or make a reservation`,
                       "buttons": [
                           {
                               "type": "postback",
@@ -325,25 +320,9 @@ let sendDinnerMenu = (sender_psid) => {
           };
 
          
-          await sendMessage(sender_psid, response1);
+          await sendMessage(sender_psid, response);
 
-         
-          await sendMessage(sender_psid, response2);
-
-          
-          await sendMessage(sender_psid, response3);
-
-          
-          await sendMessage(sender_psid, response4);
-
-         
-          await sendMessage(sender_psid, response5);
-
-         
-          await sendMessage(sender_psid, response6);
-
-         
-          await sendMessage(sender_psid, response7);
+          await sendMessage(sender_psid, response_options);
 
           resolve("done");
 
@@ -399,7 +378,7 @@ let sendPubMenu = (sender_psid) => {
                 "type": "template",
                 "payload": {
                     "template_type": "button",
-                    "text": `Back to main menu or make a reservation ?`,
+                    "text": `Back to main menu or make a reservation`,
                     "buttons": [
                         {
                             "type": "postback",
@@ -454,6 +433,68 @@ let handleShowRooms = (sender_psid) => {
 
 }
 
+let sendAppetizer = (sender_psid) => {
+ 
+  return new Promise(async (resolve, reject) => {
+      try {
+          let response = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "generic",
+                      "elements": [
+                          {
+                              "title": "Little Neck Clams on the Half Shell",
+                              "subtitle": "Dozen - $20.00",
+                              "image_url": "https://nationaltoday.com/wp-content/uploads/2021/03/National-Clams-on-the-Half-Shell-Day.jpg",
+                          },
+
+                          {
+                              "title": "Fresh Oysters",
+                              "subtitle": "1/2 Dozen - $21.00 | Dozen - $40.00",
+                              "image_url": "https://i.ytimg.com/vi/-pMG2g3jTt4/maxresdefault.jpg",
+                          },
+
+                          {
+                              "title": "Lobster Salad",
+                              "subtitle": "Half Lobster with Avocado and Grapefruit | $15.00",
+                              "image_url": "https://healthyrecipesblogs.com/wp-content/uploads/2022/10/lobster-salad-featured.jpg",
+                          },
+
+                          {
+                              "title": "Go back",
+                              "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                              "buttons": [
+                                  {
+                                      "type": "postback",
+                                      "title": "SHOW LUNCH MENU",
+                                      "payload": "BACK_TO_LUNCH_MENU",
+                                  },
+                                  {
+                                      "type": "postback",
+                                      "title": "BACK TO MAIN MENU",
+                                      "payload": "BACK_TO_MAIN_MENU",
+                                  },
+                                  {
+                                      "type": "postback",
+                                      "title": "RESERVE A TABLE",
+                                      "payload": "RESERVE_TABLE",
+                                  }
+                              ],
+                          }
+                      ]
+                  }
+              }
+          };
+
+          await sendMessage(sender_psid, response);
+          resolve("done!");
+      } catch (e) {
+          reject(e);
+      }
+  });
+};
+
 // Go Back to main menu
 // let goBackToMainMenu = (sender_psid) => {
 //   sendMainMenu(sender_psid);
@@ -502,6 +543,7 @@ module.exports = {
   sendLunchMenu,
   sendDinnerMenu,
   sendPubMenu,
+  sendAppetizer,
   handleReserveTable,
   handleShowRooms,
 }
