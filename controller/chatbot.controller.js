@@ -155,12 +155,15 @@ let handlePostback = async (sender_psid, received_postback) => {
       case "DINNER_MENU":
         await sendDinnerMenu(sender_psid);
         break;
+
       case "PUB_MENU":
         await sendPubMenu(sender_psid);
         break;
+
       case "RESERVE_TABLE":
         await handleReserveTable(sender_psid);
         break;
+
       case "SHOW_ROOMS":
         await handleShowRooms(sender_psid);
         break;
@@ -171,19 +174,22 @@ let handlePostback = async (sender_psid, received_postback) => {
         await sendAppetizer(sender_psid);
         break;
 
-      // case "SHOW_ENTREE_SALAD":
-      //   await chatBotService.sendSalad(sender_psid);
-      //   break;
-      // case "SHOW_FISH":
-      //   await chatBotService.sendFish(sender_psid);
-      //   break;
-      // case "SHOW_CLASSICS":
-      //   await chatBotService.sendClassic(sender_psid);
-      //   break;
+      case "SHOW_ENTREE_SALAD":
+        await sendSalad(sender_psid);
+        break;
+
+      case "SHOW_FISH":
+        await sendFish(sender_psid);
+        break;
+
+      case "SHOW_CLASSICS":
+        await sendClassic(sender_psid);
+        break;
 
       case "BACK_TO_MAIN_MENU":
         await sendMainMenu(sender_psid);
         break;
+
       case "BACK_TO_LUNCH_MENU":
         await sendLunchMenu(sender_psid);
         break;

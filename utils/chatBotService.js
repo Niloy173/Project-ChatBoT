@@ -182,6 +182,7 @@ let sendLunchMenu = (sender_psid) => {
                 "elements": [
                     {
                         "title": "Appetizers",
+                        "subtitle": "We know you want a bite of this",
                         "image_url": "https://images.unsplash.com/photo-1485963631004-f2f00b1d6606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=775&q=80",
                         "buttons": [
                             {
@@ -194,6 +195,7 @@ let sendLunchMenu = (sender_psid) => {
 
                     {
                         "title": "Entree Salad",
+                        "subtitle": "Eat healthy, live healthy.",
                         "image_url": "https://images.unsplash.com/photo-1505576633757-0ac1084af824?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80",
                         "buttons": [
                             {
@@ -206,6 +208,7 @@ let sendLunchMenu = (sender_psid) => {
 
                     {
                         "title": "Fish and Shell Fish",
+                        "subtitle": "Bring The Sea To Your Plate",
                         "image_url": "https://images.unsplash.com/photo-1517115358639-5720b8e02219?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1174&q=80",
                         "buttons": [
                             {
@@ -494,6 +497,143 @@ let sendAppetizer = (sender_psid) => {
       }
   });
 };
+
+let sendSalad = (sender_psid) => {
+  return new Promise(async (resolve, reject) => {
+      try{
+          let response1 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": "https://www.spoonforkbacon.com/wp-content/uploads/2022/01/salad-recipes-688x916.jpg"
+                  }
+              }
+          };
+          let response2 = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "button",
+                      "text": `Entree Salad \n$25.00`,
+                      "buttons": [
+                          {
+                              "type": "postback",
+                              "title": "SHOW MAIN MENU",
+                              "payload": "MAIN_MENU"
+                          },
+                          {
+                              "type": "postback",
+                              "title": "RESERVE A TABLE",
+                              "payload": "RESERVE_TABLE",
+                          }
+                      ]
+                  }
+              }
+          };
+
+          
+          await sendMessage(sender_psid, response1);
+          
+          await sendMessage(sender_psid, response2);
+
+          resolve("done");
+      }catch (e) {
+          reject(e);
+      }
+  });
+};
+
+let sendFish = (sender_psid) => {
+  return new Promise(async (resolve, reject) => {
+      try{
+          let response1 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": "https://www.rockrecipes.com/wp-content/uploads/2019/12/Best-Seafood-Dinner-Recipes-9-photo-collage-for-featured-image.jpg"
+                  }
+              }
+          };
+          let response2 = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "button",
+                      "text": `Fish fry \n$60.00`,
+                      "buttons": [
+                          {
+                              "type": "postback",
+                              "title": "SHOW MAIN MENU",
+                              "payload": "MAIN_MENU"
+                          },
+                          {
+                              "type": "postback",
+                              "title": "RESERVE A TABLE",
+                              "payload": "RESERVE_TABLE",
+                          }
+                      ]
+                  }
+              }
+          };
+
+          
+          await sendMessage(sender_psid, response1);
+          
+          await sendMessage(sender_psid, response2);
+
+          resolve("done");
+      }catch (e) {
+          reject(e);
+      }
+  });
+};
+
+let sendClassic = (sender_psid) => {
+  return new Promise(async (resolve, reject) => {
+      try{
+          let response1 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": "https://resizer.otstatic.com/v2/photos/wide-mlarge/2/51484116.jpg"
+                  }
+              }
+          };
+          let response2 = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "button",
+                      "text": `Perfect oven baked fries \n$30.00`,
+                      "buttons": [
+                          {
+                              "type": "postback",
+                              "title": "SHOW MAIN MENU",
+                              "payload": "MAIN_MENU"
+                          },
+                          {
+                              "type": "postback",
+                              "title": "RESERVE A TABLE",
+                              "payload": "RESERVE_TABLE",
+                          }
+                      ]
+                  }
+              }
+          };
+
+         
+          await sendMessage(sender_psid, response1);
+         
+          await sendMessage(sender_psid, response2);
+
+          resolve("done");
+      }catch (e) {
+          reject(e);
+      }
+  });
+};
+
+
 
 // Go Back to main menu
 // let goBackToMainMenu = (sender_psid) => {
