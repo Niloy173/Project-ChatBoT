@@ -1,7 +1,8 @@
 let express = require('express');
 
 
-let {postWebhook,getWebhook} = require("../controller/chatbot.controller");
+let {postWebhook,getWebhook} = 
+require("../controller/chatbot.controller");
 
 let router = express.Router();
 

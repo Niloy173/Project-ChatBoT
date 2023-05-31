@@ -32,6 +32,9 @@ const botRouter = require("./routes/chatbot.route");
 /* middleware */
 app.enable('case sensitive routing');
 app.use(express.static(staticDir));
+app.use("/css", express.static(`${__dirname}` + "/public/css/"));
+app.use("/img", express.static(`${__dirname}` + "/public/images/"));
+app.use("/js", express.static(`${__dirname}` + "/public/js/"));
 
 
 /* view engine configuration */
@@ -42,19 +45,19 @@ app.use("/",homeRouter.router);
 app.use("/bot",botRouter.router);
 
 /* error handler middleware */
-app.use((err, req, res, next) => {
+// app.use((err, req, res, next) => {
 
-  const status = err.status || 500;
-  const message = err.message || "Something went wrong";
+//   const status = err.status || 500;
+//   const message = err.message || "Something went wrong";
 
-  res.status(status).json({
-    success: false,
-    status: status,
-    message: message,
-    stack: err.stack || null
-  });
+//   res.status(status).json({
+//     success: false,
+//     status: status,
+//     message: message,
+//     stack: err.stack || null
+//   });
 
-})
+// })
 
 /* listening to the server */
 app.listen(port,() => {
