@@ -42,8 +42,8 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
             "template_type": "generic",
             "elements": [{
               "title": "The Diner Restaurant",
-              "subtitle": "We are always here to serve you. check out our menu.",
-              "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+              "subtitle": "We are always here to serve you.",
+              "image_url": "https://drive.google.com/file/d/1vL4ZezihVBaavZmlWxvPJ3kDNhB3j2RH/view?usp=sharing",
               "buttons": [
                 {
                   "type": "postback",
@@ -73,30 +73,6 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
 }
 
 
-let sendMessage = (sender_psid, response) => {
-  
-  let request_body = {
-    "recipient": {
-      "id": sender_psid
-    },
-    "message": response
-  }
-
-  // Send the HTTP request to the Messenger Platform
-  request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('message sent!')
-    } else {
-      console.error("Unable to send message:" + err);
-    }
-  }); 
-}
-
 let sendMainMenu = (sender_psid) => {
 
   try {
@@ -112,7 +88,7 @@ let sendMainMenu = (sender_psid) => {
                 {
                   "title": "Our Menus",
                   "subtitle": "We are pleased to offer you a whole-range of menu for lunch or dinner.",
-                  "image_url": "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                  "image_url": "https://drive.google.com/file/d/1EkqbmoIsI6XI81iWlsw10SpMY4mTDrhT/view?usp=sharing",
                   "buttons": [
                     {
                       "type": "postback",
@@ -184,6 +160,32 @@ let sendMainMenu = (sender_psid) => {
     
   }
   
+}
+
+let sendMessage = (sender_psid, response) => {
+  
+  console.log(response);
+
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": response
+  }
+
+  // Send the HTTP request to the Messenger Platform
+  request({
+    "uri": "https://graph.facebook.com/v17.0/me/messages",
+    "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+    "method": "POST",
+    "json": request_body
+  }, (err, res, body) => {
+    if (!err) {
+      console.log('message sent!')
+    } else {
+      console.error("Unable to send message:" + err);
+    }
+  }); 
 }
 
 module.exports = {
