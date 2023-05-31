@@ -36,24 +36,34 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
       let response_first =  { "text": `Welcome ${username} to The Dinner 💜`};
       
       let response_second = {
-        "attachment": {
-          "type": "template",
-          "payload": {
-            "template_type": "generic",
-            "elements": [{
-              "title": "The Diner Restaurant",
-              "subtitle": "We are always here to serve you.",
-              "image_url": "https://drive.google.com/file/d/1vL4ZezihVBaavZmlWxvPJ3kDNhB3j2RH/view?usp=sharing",
-              "buttons": [
-                {
-                  "type": "postback",
-                  "title": "Show MAIN MENU",
-                  "subtitle": "You're in good hands with us.",
-                  "payload": "MAIN_MENU",
-                }
-              ],
-            }]
-          }
+          "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [
+                    {
+                        "title": "The Diner Restaurant",
+                        "subtitle": "My restaurant is legendary, its classic wine collection equally so.",
+                        "image_url": "https://drive.google.com/file/d/1vL4ZezihVBaavZmlWxvPJ3kDNhB3j2RH/view?usp=sharing",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "SHOW MAIN MENU",
+                                "payload": "MAIN_MENU",
+                            },
+                            {
+                                "type": "postback",
+                                "title": "RESERVE A TABLE",
+                                "payload": "RESERVE_TABLE",
+                            },
+                            {
+                                "type": "postback",
+                                "title": "GUIDE TO USE THIS BOT",
+                                "payload": "GUIDE_BOT",
+                            }
+                        ],
+                    } ]
+            }
         }
       }
 
@@ -162,7 +172,8 @@ let sendMainMenu = (sender_psid) => {
 
 let sendMessage = (sender_psid, response) => {
   
-  console.log(response.payload.elements);
+  console.log(`sender id ${sender_psid}`);
+  console.log(response.attachment.payload.elements);
 
   return new Promise((resolve, reject) => {
     try {
