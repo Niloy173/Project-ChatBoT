@@ -430,6 +430,15 @@ let sendPubMenu = (sender_psid) => {
 
 let handleReserveTable = (sender_psid) => {
 
+    return new Promise(async (resolve, reject) => {
+        try {
+            let username = await getFacebookUsername(sender_psid);
+            let response = { text: `Hi ${username}, What time and date you would like to reserve a table ?` };
+            await sendMessage(sender_psid, response);
+        } catch (e) {
+            reject(e);
+        }
+    });
 }
 
 let handleShowRooms = (sender_psid) => {
@@ -505,7 +514,7 @@ let sendSalad = (sender_psid) => {
               "attachment": {
                   "type": "image",
                   "payload": {
-                      "url": "https://www.spoonforkbacon.com/wp-content/uploads/2022/01/salad-recipes-688x916.jpg"
+                      "url": "https://media0.giphy.com/media/9Vk8qP9EmWB8FePccb/giphy.gif?cid=ecf05e478d0c93d69e72264c8ebbf58a9a1d7ae294754131&rid=giphy.gif"
                   }
               }
           };
@@ -595,7 +604,7 @@ let sendClassic = (sender_psid) => {
               "attachment": {
                   "type": "image",
                   "payload": {
-                      "url": "https://resizer.otstatic.com/v2/photos/wide-mlarge/2/51484116.jpg"
+                      "url": "https://media3.giphy.com/media/TGcD6N8uzJ9FXuDV3a/giphy.gif?cid=ecf05e47afe5be971d1fe6c017ada8e15c29a76fc524ac20&rid=giphy.gif"
                   }
               }
           };
