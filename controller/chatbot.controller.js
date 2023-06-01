@@ -139,7 +139,7 @@ let handleMessage = async (sender_psid, received_message) => {
 
   
   // Sends the response message
-  callSendAPI(sender_psid, response);
+  // callSendAPI(sender_psid, response);
 }
 
 
@@ -273,7 +273,7 @@ let handleMessageWithEntities = (message) => {
   });
 
   data.name = entityChosen;
-  //console.log(data);
+  console.log(data);
 
   return data;
 
