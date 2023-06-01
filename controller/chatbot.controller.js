@@ -367,7 +367,12 @@ let handleMessageWithEntities = (message) => {
 function firstEntity(nlp, name) {
   // console.log(`entities : ${nlp.entities[`wit$${name}: ${name}`]}`);
   try {
-    return nlp && nlp.entities && nlp.traits[`wit$${name}:${name}`] && nlp.traits[`wit$${name}:${name}`][0];
+
+    if(nlp && nlp.entities && nlp.entities[`wit$${name}: ${name}`]){
+      return nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`] && nlp.entities[`wit$${name}:${name}`][0];
+    }else {
+      return nlp && nlp.entities && nlp.traits[`wit$${name}:${name}`] && nlp.traits[`wit$${name}:${name}`][0];
+    }
   } catch (error) {
     console.log(`Error occurred : ${error}`);
   }
