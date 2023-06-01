@@ -306,19 +306,19 @@ let handleMessageWithEntities = (message) => {
   
   // console.log(`data: `,data);
 
-  // return data;
+  
 
   console.log("------------------------");
   console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
   console.log("------------------------");
 
-
+   return data;
 }
 
 // Parse an NLP message
 function firstEntity(nlp, name) {
-  console.log(`Traits : ${nlp.traits[name]}`);
-  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+  console.log(`entities : ${nlp.entities[name]}`);
+  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 }
 module.exports = {
   postWebhook,
