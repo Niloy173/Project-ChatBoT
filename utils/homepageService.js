@@ -180,8 +180,8 @@ let sendResponseThanks = (sender_psid, locale) => {
               }
           };
 
-          await chatBotService.sendMessage(sender_psid, response1);
-          await chatBotService.sendMessage(sender_psid, response2);
+          await sendMessage(sender_psid, response1);
+          await sendMessage(sender_psid, response2);
           resolve("done");
       } catch (e) {
           reject(e);

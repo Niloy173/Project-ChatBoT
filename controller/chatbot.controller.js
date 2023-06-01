@@ -356,9 +356,9 @@ let handleMessageWithEntities = (message) => {
 
   
 
-  // console.log("------------------------");
-  // console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
-  // console.log("------------------------");
+  console.log("------------------------");
+  console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
+  console.log("------------------------");
 
    return data;
 }
@@ -367,7 +367,7 @@ let handleMessageWithEntities = (message) => {
 function firstEntity(nlp, name) {
   // console.log(`entities : ${nlp.entities[`wit$${name}: ${name}`]}`);
   try {
-    return nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`] && nlp.entities[`wit$${name}:${name}`][0];
+    return nlp && nlp.entities && nlp.traits[`wit$${name}:${name}`] && nlp.traits[`wit$${name}:${name}`][0];
   } catch (error) {
     console.log(`Error occurred : ${error}`);
   }
