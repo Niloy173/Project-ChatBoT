@@ -124,27 +124,27 @@ let handleMessage = async (sender_psid, message) => {
   // } 
 
   // checking quick reply
-  if(message && message.quick_reply && message.quick_reply.payload) {
+  // if(message && message.quick_reply && message.quick_reply.payload) {
 
-    if(message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" || message. 
-     message.quick_reply.payload === "LARGE") {
+  //   if(message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" || message. 
+  //    message.quick_reply.payload === "LARGE") {
 
-      // asking about the phone number
-      await sendMessageAskingPhoneNumber(sender_psid);
-      return;
-     }
+  //     // asking about the phone number
+  //     await sendMessageAskingPhoneNumber(sender_psid);
+  //     return;
+  //    }
 
 
-  }
+  // }
 
   let entity = handleMessageWithEntities(message);
-  let locale = entity.locale;
+  // let locale = entity.locale;
 
-  if(entity.name === "wit$datetime:datetime"){
+  if(entity.name === "datetime"){
     // handle quick reply message asking about phone number
     await sendMessageAskingQuantity(sender_psid);
   }
-  else if(entity.name === "wit$phone_number:phone_number"){
+  else if(entity.name === "phone_number"){
     // handle quick reply message : done reserve table
 
   }else {
@@ -278,12 +278,12 @@ function callSendAPI(sender_psid, response) {
 let handleMessageWithEntities = (message) => {
   
   console.log(`The actual message : `, message);
-  let entitiesArr = ["wit$datetime:datetime", "wit$phone_number:phone_number"];
+  let entitiesArr = ["datetime", "phone_number"];
   let entityChosen = "";
   let data = {}; // to detect which entities choosen
   entitiesArr.forEach((name) => {
 
-    let entity = firstEntity(message.nlp, name.trim());
+    let entity = firstEntity(message.nlp, name);
     console.log(`Return entity:  ${entity}`);
     if(entity && entity.confidence > 0.8) {
       entityChosen = name;
@@ -295,28 +295,29 @@ let handleMessageWithEntities = (message) => {
   // console.log(entityChosen);
 
   //checking language
-  if (message && message.nlp && message.nlp.detected_locales) {
-    if (message.nlp.detected_locales[0]) {
-        let locale = message.nlp.detected_locales[0].locale;
-        console.log(`locale :`,locale);
-        data.locale = locale.substring(0, 2)
-    }
+  // if (message && message.nlp && message.nlp.detected_locales) {
+  //   if (message.nlp.detected_locales[0]) {
+  //       let locale = message.nlp.detected_locales[0].locale;
+  //       console.log(`locale :`,locale);
+  //       data.locale = locale.substring(0, 2)
+  //   }
 
-  }
+  // }
   
-  console.log(`data: `,data);
+  // console.log(`data: `,data);
 
-  return data;
+  // return data;
 
-  // console.log("------------------------");
-  // console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
-  // console.log("------------------------");
+  console.log("------------------------");
+  console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
+  console.log("------------------------");
 
 
 }
 
 // Parse an NLP message
 function firstEntity(nlp, name) {
+  console.log(`Traits : ${nlp.traits[name]}`);
   return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
 }
 module.exports = {
