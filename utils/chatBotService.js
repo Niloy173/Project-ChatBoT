@@ -666,7 +666,7 @@ let sendMessageAskingQuantity = (sender_psid) => {
                     },{
                         "content_type":"text",
                         "title":"2-5",
-                        "payload":"MEDIUM>",
+                        "payload":"MEDIUM",
                         
                     },{
                         "content_type":"text",

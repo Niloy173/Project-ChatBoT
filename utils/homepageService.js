@@ -25,8 +25,12 @@ let setUpMessangerPlatform = (PAGE_ACCESS_TOKEN) => {
                   {
                     "type": "web_url",
                     "title": "View Facebook Fan Page",
-                    "url": "https://www.originalcoastclothing.com/",
+                    "url": "https://www.facebook.com/profile.php?id=100093249606113",
                     "webview_height_ratio": "full"
+                }, {
+                  "type": "postback",
+                  "title": "Restart this conversation",
+                  "payload": "RESTART_CONVERSATION"
                 }
               ]
           }

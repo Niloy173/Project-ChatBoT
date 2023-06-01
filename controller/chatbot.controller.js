@@ -260,6 +260,7 @@ function callSendAPI(sender_psid, response) {
 
 // handle message with Entities
 let handleMessageWithEntities = (message) => {
+  
   let entitiesArr = ["datetime", "phone_number"];
   let entityChosen = "";
   let data = {}; // to detect which entities choosen
@@ -273,6 +274,7 @@ let handleMessageWithEntities = (message) => {
   });
 
   data.name = entityChosen;
+  console.log(entityChosen);
   console.log(data);
 
   return data;
