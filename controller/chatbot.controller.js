@@ -1,4 +1,13 @@
 const request = require('request');
+const moment = require('moment');
+
+let user = {
+  name: "",
+  phoneNumber: "",
+  time: "",
+  quantity: "",
+  createdAt: ""
+};
 
 const {sendMainMenu, 
   getFacebookUsername, 
@@ -16,6 +25,12 @@ const {sendMainMenu,
   sendMessageAskingQuantity,
   sendMessageDoneReservation
   } = require("../utils/chatBotService");
+
+const {sendMessageDefaultForTheBot, 
+        sendResponseGreetings,
+        sendResponseBye,
+        sendResponseThanks
+} = require("../utils/homepageService");
 
 let getWebhook = (req,res,next) => {
 
@@ -130,6 +145,10 @@ let handleMessage = async (sender_psid, message) => {
     if(message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" ||  
      message.quick_reply.payload === "LARGE") {
 
+      if (message.quick_reply.payload === "SMALL") user.quantity = "1-2 people";
+      if (message.quick_reply.payload === "MEDIUM") user.quantity = "2-5 people";
+      if (message.quick_reply.payload === "LARGE") user.quantity = "More than 5 people";
+
       // asking about the phone number
       await sendMessageAskingPhoneNumber(sender_psid);
       return;
@@ -138,30 +157,46 @@ let handleMessage = async (sender_psid, message) => {
      // payload is a phone number | look for the validity of the phone number
      if(message.quick_reply.payload !== " "){
 
-      // done reservation
-      console.log('hello');
+      user.phoneNumber = message.quick_reply.payload;
+      user.createdAt = moment(Date.now()).zone("+07:00").format('MM/DD/YYYY h:mm A');
+
+      //send a notification to Telegram Group chat by Telegram bot.
+
+      // done reservation. send messages to the user
       await sendMessageDoneReservation(sender_psid);
-      return;
+      
      }
 
-
+     return;
 
   }
 
   let entity = handleMessageWithEntities(message);
-  // let locale = entity.locale;
+  let locale = entity.locale;
 
   if(entity.name === "datetime"){
     // handle quick reply message asking about phone number
     await sendMessageAskingQuantity(sender_psid);
   }
   else if(entity.name === "phone_number"){
+
+    user.phoneNumber = entity.value;
+    user.createdAt = moment(Date.now()).zone("+07:00").format('MM/DD/YYYY h:mm A');
+    //send a notification to Telegram Group chat by Telegram bot.
+
     // handle quick reply message : done reserve table
     await sendMessageDoneReservation(sender_psid);
 
+  }else if(entity.name === "greetings"){
+    await sendResponseGreetings(sender_psid, locale);
+  }else if(entity.name === "thanks"){
+    await sendResponseThanks(sender_psid, locale);
+  }else if(entity.name === "bye"){
+    await sendResponseBye(sender_psid, locale);
   }else {
 
     // default reply message
+    await sendMessageDefaultForTheBot(sender_psid);
   }
 
 
@@ -186,6 +221,7 @@ let handlePostback = async (sender_psid, received_postback) => {
 
       //get username
       const username = await getFacebookUsername(sender_psid);
+      username = username;
       await sendResponseWelcomeNewCustomer(username,sender_psid);
       
       // response = { "text": `Welcome ${username} to The Dinner 💜`};
@@ -290,7 +326,7 @@ function callSendAPI(sender_psid, response) {
 let handleMessageWithEntities = (message) => {
   
   // console.log(`The actual message : `, message);
-  let entitiesArr = ["datetime", "phone_number"];
+  let entitiesArr = ["datetime", "phone_number","greetings", "thanks", "bye" ];
   let entityChosen = "";
   let data = {}; // to detect which entities choosen
   entitiesArr.forEach((name) => {
@@ -307,16 +343,16 @@ let handleMessageWithEntities = (message) => {
   // console.log(entityChosen);
 
   //checking language
-  // if (message && message.nlp && message.nlp.detected_locales) {
-  //   if (message.nlp.detected_locales[0]) {
-  //       let locale = message.nlp.detected_locales[0].locale;
-  //       console.log(`locale :`,locale);
-  //       data.locale = locale.substring(0, 2)
-  //   }
+  if (message && message.nlp && message.nlp.detected_locales) {
+    if (message.nlp.detected_locales[0]) {
+        let locale = message.nlp.detected_locales[0].locale;
+        console.log(`locale :`,locale);
+        data.locale = locale.substring(0, 2)
+    }
 
-  // }
+  }
   
-  console.log(`data: `,data);
+  // console.log(`data: `,data);
 
   
 

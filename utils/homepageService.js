@@ -64,6 +64,200 @@ let setUpMessangerPlatform = (PAGE_ACCESS_TOKEN) => {
   });
 }
 
+let sendResponseGreetings = (sender_psid, locale) => {
+  
+    return new Promise(async (resolve, reject) => {
+      try {
+          let URL = "";
+          let text = "";
+          if (locale === "es") {
+              URL = "https://media0.giphy.com/media/eMBKXi56D0EXC/giphy.gif";
+              text = `Hola. Bienvenido al restaurante de HaryPhamDev.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else if (locale === "fr") {
+              URL = "https://media1.giphy.com/media/26tk02z9fVjkdTCr6/giphy.gif";
+              text = `Salut. Bienvenue au restaurant de HaryPhamDev.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else if (locale === "de") {
+              URL = "https://media2.giphy.com/media/9VrAK7bVIPOl23G4h3/giphy.gif?cid=ecf05e476622fe3568933b2bce30155a6a0d3fc6b6bfe52b&rid=giphy.gif";
+              text = `Hallo. Willkommen im Restaurant von HaryPhamDev.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else if(locale === "bn"){
+              URL = "https://thumbs.gfycat.com/CourageousImportantAdeliepenguin-size_restricted.gif",
+              text = `আসসালামু আলাইকুম। ডিনার রেস্টুরেন্টে স্বাগতম.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
+          }else {
+              URL = "https://media2.giphy.com/media/OF0yOAufcWLfi/giphy.gif?cid=ecf05e47cdbf04565acc041633c39c5143828c34c09608f7&rid=giphy.gif";
+              text = `Hi. Welcome to The Dinner restaurant.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
+          }
+
+
+          let response1 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": URL
+                  }
+              }
+          };
+
+
+          let response2 = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "button",
+                      "text": text,
+                      "buttons": [
+                          {
+                              "type": "postback",
+                              "title": "SHOW MAIN MENU",
+                              "payload": "MAIN_MENU"
+                          },
+                          {
+                              "type": "postback",
+                              "title": "RESERVE A TABLE",
+                              "payload": "RESERVE_TABLE",
+                          }
+                      ]
+                  }
+              }
+          };
+
+      
+          await chatBotService.sendMessage(sender_psid, response1);
+      
+          await chatBotService.sendMessage(sender_psid, response2);
+
+          resolve("done");
+      } catch (e) {
+          reject(e);
+      }
+  });
+}
+
+let sendResponseThanks = (sender_psid, locale) => {
+  
+  return new Promise(async (resolve, reject) => {
+      try {
+          let URL = "https://media3.giphy.com/media/Q7y3K35QjxCBa/giphy.gif?cid=ecf05e47095b476d732d1cc437dc8d5f7746edf2d2857ec2&rid=giphy.gif";
+          let text = "";
+          if (locale === "es") {
+              text = `De nada! Or you can test me with these button below. Have fun! 😉`;
+          } else if (locale === "fr") {
+              text = `Vous êtes les bienvenus!\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else if (locale === "de") {
+              text = `Bitte!\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else if (locale === "bn"){
+              text = `আপনাকে স্বাগতম!\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else {
+              text = `You're welcome!\n\nOr you can test me with these button below. Have fun! 😉`;
+          }
+
+
+          let response1 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": URL
+                  }
+              }
+          };
+
+
+          let response2 = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "button",
+                      "text": text,
+                      "buttons": [
+                          {
+                              "type": "postback",
+                              "title": "SHOW MAIN MENU",
+                              "payload": "MAIN_MENU"
+                          },
+                          {
+                              "type": "postback",
+                              "title": "RESERVE A TABLE",
+                              "payload": "RESERVE_TABLE",
+                          }
+                      ]
+                  }
+              }
+          };
+
+          await chatBotService.sendMessage(sender_psid, response1);
+          await chatBotService.sendMessage(sender_psid, response2);
+          resolve("done");
+      } catch (e) {
+          reject(e);
+      }
+  });
+};
+
+let sendResponseBye = (sender_psid, locale) => {
+  return new Promise(async (resolve, reject) => {
+      try {
+          let URL = "https://media0.giphy.com/media/8JIRQqil8mvEA/200.webp?cid=ecf05e479d4d36068fd177fd8823a9f0e813bc694e40a567&rid=200.webp";
+          let text = "";
+          if (locale === "es") {
+              text = `Adiós!\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else if (locale === "fr") {
+              text = `Au revoir!\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else if (locale === "de") {
+              text = `Tschüss!\n\nOr you can test me with these button below. Have fun! 😉`;
+          } else if (locale === "bn") {
+              text = `বিদায়!\n\nOr you can test me with these button below. Have fun! 😉`;
+          }else {
+              text = `Bye-bye!\n\nOr you can test me with these button below. Have fun! 😉`;
+          }
+
+
+          let response1 = {
+              "attachment": {
+                  "type": "image",
+                  "payload": {
+                      "url": URL
+                  }
+              }
+          };
+
+          let response2 = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "button",
+                      "text": text,
+                      "buttons": [
+                          {
+                              "type": "postback",
+                              "title": "SHOW MAIN MENU",
+                              "payload": "MAIN_MENU"
+                          },
+                          {
+                              "type": "postback",
+                              "title": "RESERVE A TABLE",
+                              "payload": "RESERVE_TABLE",
+                          }
+                      ]
+                  }
+              }
+          };
+
+          await chatBotService.sendMessage(sender_psid, response1);
+          await chatBotService.sendMessage(sender_psid, response2);
+          resolve("done");
+      } catch (e) {
+          reject(e);
+      }
+  });
+};
+
+let sendMessageDefaultForTheBot = (sender_psid) => {
+
+}
+
 module.exports = {
-  setUpMessangerPlatform
+  setUpMessangerPlatform,
+  sendResponseGreetings,
+  sendResponseThanks,
+  sendResponseBye,
+  sendMessageDefaultForTheBot
 }
