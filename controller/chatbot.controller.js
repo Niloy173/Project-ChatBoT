@@ -332,7 +332,8 @@ let handleMessageWithEntities = (message) => {
   entitiesArr.forEach((name) => {
 
     let entity = firstEntity(message.nlp, name);
-    // console.log(`Return entity:  ${entity}`);
+    console.log(`Return entity:  ${entity}`);
+    
     if(entity && entity.confidence > 0.8) {
       entityChosen = name;
       data.value = entity.value;
@@ -368,7 +369,7 @@ function firstEntity(nlp, name) {
   // console.log(`entities : ${nlp.entities[`wit$${name}: ${name}`]}`);
   try {
 
-    if(nlp && nlp.entities && nlp.entities[`wit$${name}: ${name}`]){
+    if(nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`]){
       return nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`] && nlp.entities[`wit$${name}:${name}`][0];
     }else {
       return nlp && nlp.entities && nlp.traits[`wit$${name}:${name}`] && nlp.traits[`wit$${name}:${name}`][0];
