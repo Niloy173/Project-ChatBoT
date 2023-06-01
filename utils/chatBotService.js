@@ -559,7 +559,7 @@ let sendFish = (sender_psid) => {
               "attachment": {
                   "type": "image",
                   "payload": {
-                      "url": "https://www.rockrecipes.com/wp-content/uploads/2019/12/Best-Seafood-Dinner-Recipes-9-photo-collage-for-featured-image.jpg"
+                      "url": "https://media.tenor.com/9CPhGHC1KUUAAAAd/%EB%A7%A4%EC%9A%B4%EB%AA%A8%EB%93%AC%ED%95%B4%EB%AC%BC%EC%B0%9C-%EC%A4%91%EA%B5%AD%EB%8B%B9%EB%A9%B4.gif"
                   }
               }
           };
@@ -643,6 +643,60 @@ let sendClassic = (sender_psid) => {
 };
 
 
+let sendMessageAskingQuantity = (sender_psid) => {
+
+    return new Promise((resolve, reject) => {
+        
+        try {
+          
+            let request_body = {
+               
+            "recipient":{
+                    "id": sender_psid
+                },
+                "messaging_type": "RESPONSE",
+                "message":{
+                    "text": "What is your party size ?",
+                    "quick_replies":[
+                    {
+                        "content_type":"text",
+                        "title":"1-3",
+                        "payload":"SMALL",
+                        
+                    },{
+                        "content_type":"text",
+                        "title":"2-5",
+                        "payload":"MEDIUM>",
+                        
+                    },{
+                        "content_type":"text",
+                        "title":"4-10",
+                        "payload":"LARGE",
+                        
+                    }]
+                }
+          }
+        
+          // Send the HTTP request to the Messenger Platform
+          request({
+            "uri": "https://graph.facebook.com/v2.6/me/messages",
+            "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+            "method": "POST",
+            "json": request_body
+          }, (err, res, body) => {
+            if (!err) {
+              console.log('message sent!');
+              resolve("done!");
+            } else {
+              reject("Unable to send message:" + err);
+            }
+          });       
+        } catch (error) {
+          reject(error);
+        }
+      })
+
+}
 
 // Go Back to main menu
 // let goBackToMainMenu = (sender_psid) => {
@@ -698,4 +752,5 @@ module.exports = {
   sendClassic,
   handleReserveTable,
   handleShowRooms,
+  sendMessageAskingQuantity
 }

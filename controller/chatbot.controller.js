@@ -12,6 +12,7 @@ const {sendMainMenu,
   sendSalad,
   handleReserveTable,
   handleShowRooms,
+  sendMessageAskingQuantity
   } = require("../utils/chatBotService");
 
 let getWebhook = (req,res,next) => {
@@ -76,49 +77,66 @@ let postWebhook = (req,res,next) => {
 }
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+let handleMessage = async (sender_psid, received_message) => {
 
-  let response;
+ // let response;
 
   // Check if the message contains text
-  if (received_message.text) {    
+  // if (received_message.text) {    
 
-    // Create the payload for a basic text message
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
-    }
-  }  
-  else if (received_message.attachments) {
+  //   // Create the payload for a basic text message
+  //   response = {
+  //     "text": `You sent the message: "${received_message.text}". Now send me an image!`
+  //   }
+  // }
+  // // check if the message is an attachment  
+  // else if (received_message.attachments) {
   
-    // Gets the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
+  //   // Gets the URL of the message attachment
+  //   let attachment_url = received_message.attachments[0].payload.url;
   
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
-        }
-      }
-    }
-  } 
+  //   response = {
+  //     "attachment": {
+  //       "type": "template",
+  //       "payload": {
+  //         "template_type": "generic",
+  //         "elements": [{
+  //           "title": "Is this the right picture?",
+  //           "subtitle": "Tap a button to answer.",
+  //           "image_url": attachment_url,
+  //           "buttons": [
+  //             {
+  //               "type": "postback",
+  //               "title": "Yes!",
+  //               "payload": "yes",
+  //             },
+  //             {
+  //               "type": "postback",
+  //               "title": "No!",
+  //               "payload": "no",
+  //             }
+  //           ],
+  //         }]
+  //       }
+  //     }
+  //   }
+  // } 
+
+  let entity = handleMessageWithEntities(received_message);
+
+  if(entity.name === "datetime"){
+    // handle quick reply message asking about phone number
+    await sendMessageAskingQuantity(sender_psid);
+  }
+  else if(entity.name === "phone_number"){
+    // handle quick reply message : done reserve table
+
+  }else {
+
+    // default reply message
+  }
+
+
   
   // Sends the response message
   callSendAPI(sender_psid, response);
@@ -240,6 +258,36 @@ function callSendAPI(sender_psid, response) {
   }); 
 }
 
+// handle message with Entities
+let handleMessageWithEntities = (message) => {
+  let entitiesArr = ["datetime", "phone_number"];
+  let entityChosen = "";
+  let data = {}; // to detect which entities choosen
+  entitiesArr.forEach((name) => {
+
+    let entity = firstEntity(message.nlp, name.trim());
+    if(entity && entity.confidence > 0.8) {
+      entityChosen = name;
+      data.value = entity.value;
+    }
+  });
+
+  data.name = entityChosen;
+  //console.log(data);
+
+  return data;
+
+  // console.log("------------------------");
+  // console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
+  // console.log("------------------------");
+
+
+}
+
+// Parse an NLP message
+function firstEntity(nlp, name) {
+  return nlp && nlp.entities && nlp.traits[name] && nlp.traits[name][0];
+}
 module.exports = {
   postWebhook,
   getWebhook
