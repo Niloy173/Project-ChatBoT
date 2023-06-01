@@ -122,7 +122,7 @@ let handleMessage = async (sender_psid, received_message) => {
   //   }
   // } 
 
-  let entity = handleMessageWithEntities(received_message);
+  handleMessageWithEntities(received_message);
 
   if(entity.name === "datetime"){
     // handle quick reply message asking about phone number
@@ -263,25 +263,24 @@ let handleMessageWithEntities = (message) => {
   
   let entitiesArr = ["datetime", "phone_number"];
   let entityChosen = "";
-  let data = {}; // to detect which entities choosen
+  //let data = {}; // to detect which entities choosen
   entitiesArr.forEach((name) => {
 
     let entity = firstEntity(message.nlp, name.trim());
     if(entity && entity.confidence > 0.8) {
       entityChosen = name;
-      data.value = entity.value;
+      //data.value = entity.value;
     }
   });
 
-  data.name = entityChosen;
-  console.log(entityChosen);
-  console.log(data);
+  //data.name = entityChosen;
+  //console.log(data);
 
-  return data;
+  //return data;
 
-  // console.log("------------------------");
-  // console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
-  // console.log("------------------------");
+  console.log("------------------------");
+  console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
+  console.log("------------------------");
 
 
 }
