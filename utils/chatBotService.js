@@ -837,6 +837,7 @@ module.exports = {
   sendClassic,
   handleReserveTable,
   handleShowRooms,
+  sendMessage,
   sendMessageAskingQuantity,
   sendMessageAskingPhoneNumber,
   sendMessageDoneReservation

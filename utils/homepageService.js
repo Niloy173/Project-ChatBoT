@@ -1,5 +1,7 @@
 const request = require('request');
 
+const {sendMessage} = require("../utils/chatBotService");
+
 let setUpMessangerPlatform = (PAGE_ACCESS_TOKEN) => {
 
   return new Promise((resolve, reject) => {
@@ -79,10 +81,7 @@ let sendResponseGreetings = (sender_psid, locale) => {
           } else if (locale === "de") {
               URL = "https://media2.giphy.com/media/9VrAK7bVIPOl23G4h3/giphy.gif?cid=ecf05e476622fe3568933b2bce30155a6a0d3fc6b6bfe52b&rid=giphy.gif";
               text = `Hallo. Willkommen im Restaurant von HaryPhamDev.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else if(locale === "bn"){
-              URL = "https://thumbs.gfycat.com/CourageousImportantAdeliepenguin-size_restricted.gif",
-              text = `আসসালামু আলাইকুম। ডিনার রেস্টুরেন্টে স্বাগতম.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
-          }else {
+          } else {
               URL = "https://media2.giphy.com/media/OF0yOAufcWLfi/giphy.gif?cid=ecf05e47cdbf04565acc041633c39c5143828c34c09608f7&rid=giphy.gif";
               text = `Hi. Welcome to The Dinner restaurant.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
           }
@@ -121,9 +120,9 @@ let sendResponseGreetings = (sender_psid, locale) => {
           };
 
       
-          await chatBotService.sendMessage(sender_psid, response1);
+          await sendMessage(sender_psid, response1);
       
-          await chatBotService.sendMessage(sender_psid, response2);
+          await sendMessage(sender_psid, response2);
 
           resolve("done");
       } catch (e) {
@@ -144,9 +143,7 @@ let sendResponseThanks = (sender_psid, locale) => {
               text = `Vous êtes les bienvenus!\n\nOr you can test me with these button below. Have fun! 😉`;
           } else if (locale === "de") {
               text = `Bitte!\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else if (locale === "bn"){
-              text = `আপনাকে স্বাগতম!\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else {
+          }  else {
               text = `You're welcome!\n\nOr you can test me with these button below. Have fun! 😉`;
           }
 
@@ -203,9 +200,7 @@ let sendResponseBye = (sender_psid, locale) => {
               text = `Au revoir!\n\nOr you can test me with these button below. Have fun! 😉`;
           } else if (locale === "de") {
               text = `Tschüss!\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else if (locale === "bn") {
-              text = `বিদায়!\n\nOr you can test me with these button below. Have fun! 😉`;
-          }else {
+          } else {
               text = `Bye-bye!\n\nOr you can test me with these button below. Have fun! 😉`;
           }
 

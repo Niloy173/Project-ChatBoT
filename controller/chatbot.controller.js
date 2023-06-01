@@ -221,7 +221,7 @@ let handlePostback = async (sender_psid, received_postback) => {
 
       //get username
       const username = await getFacebookUsername(sender_psid);
-      username = username;
+      user.name = username;
       await sendResponseWelcomeNewCustomer(username,sender_psid);
       
       // response = { "text": `Welcome ${username} to The Dinner 💜`};
