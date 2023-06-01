@@ -139,6 +139,7 @@ let handleMessage = async (sender_psid, message) => {
      if(message.quick_reply.payload !== " "){
 
       // done reservation
+      console.log('hello');
       await sendMessageDoneReservation(sender_psid);
       return;
      }
