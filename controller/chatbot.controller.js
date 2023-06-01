@@ -12,6 +12,7 @@ const {sendMainMenu,
   sendSalad,
   handleReserveTable,
   handleShowRooms,
+  sendMessageAskingPhoneNumber,
   sendMessageAskingQuantity
   } = require("../utils/chatBotService");
 
@@ -77,7 +78,7 @@ let postWebhook = (req,res,next) => {
 }
 
 // Handles messages events
-let handleMessage = async (sender_psid, received_message) => {
+let handleMessage = async (sender_psid, message) => {
 
  // let response;
 
@@ -122,13 +123,28 @@ let handleMessage = async (sender_psid, received_message) => {
   //   }
   // } 
 
-  handleMessageWithEntities(received_message);
+  // checking quick reply
+  if(message && message.quick_reply && message.quick_reply.payload) {
 
-  if(entity.name === "datetime"){
+    if(message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" || message. 
+     message.quick_reply.payload === "LARGE") {
+
+      // asking about the phone number
+      await sendMessageAskingPhoneNumber(sender_psid);
+      return;
+     }
+
+
+  }
+
+  let entity = handleMessageWithEntities(message);
+  let locale = entity.locale;
+
+  if(entity.name === "wit$datetime:datetime"){
     // handle quick reply message asking about phone number
     await sendMessageAskingQuantity(sender_psid);
   }
-  else if(entity.name === "phone_number"){
+  else if(entity.name === "wit$phone_number:phone_number"){
     // handle quick reply message : done reserve table
 
   }else {
@@ -261,26 +277,40 @@ function callSendAPI(sender_psid, response) {
 // handle message with Entities
 let handleMessageWithEntities = (message) => {
   
-  let entitiesArr = ["datetime", "phone_number"];
+  console.log(`The actual message : `, message);
+  let entitiesArr = ["wit$datetime:datetime", "wit$phone_number:phone_number"];
   let entityChosen = "";
-  //let data = {}; // to detect which entities choosen
+  let data = {}; // to detect which entities choosen
   entitiesArr.forEach((name) => {
 
     let entity = firstEntity(message.nlp, name.trim());
+    console.log(`Return entity:  ${entity}`);
     if(entity && entity.confidence > 0.8) {
       entityChosen = name;
-      //data.value = entity.value;
+      data.value = entity.value;
     }
   });
 
-  //data.name = entityChosen;
-  //console.log(data);
+  data.name = entityChosen;
+  // console.log(entityChosen);
 
-  //return data;
+  //checking language
+  if (message && message.nlp && message.nlp.detected_locales) {
+    if (message.nlp.detected_locales[0]) {
+        let locale = message.nlp.detected_locales[0].locale;
+        console.log(`locale :`,locale);
+        data.locale = locale.substring(0, 2)
+    }
 
-  console.log("------------------------");
-  console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
-  console.log("------------------------");
+  }
+  
+  console.log(`data: `,data);
+
+  return data;
+
+  // console.log("------------------------");
+  // console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
+  // console.log("------------------------");
 
 
 }
