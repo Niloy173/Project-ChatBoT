@@ -317,8 +317,8 @@ let handleMessageWithEntities = (message) => {
 
 // Parse an NLP message
 function firstEntity(nlp, name) {
-  console.log(`entities : ${nlp.entities[name]}`);
-  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+  console.log(`entities : ${nlp.entities[`wit$${name}: ${name}`]}`);
+  return nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`] && nlp.entities[`wit$${name}:${name}`][0];
 }
 module.exports = {
   postWebhook,
