@@ -127,7 +127,7 @@ let handleMessage = async (sender_psid, message) => {
   // checking quick reply
   if(message && message.quick_reply && message.quick_reply.payload) {
 
-    if(message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" || message. 
+    if(message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" ||  
      message.quick_reply.payload === "LARGE") {
 
       // asking about the phone number
