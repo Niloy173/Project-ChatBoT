@@ -13,7 +13,8 @@ const {sendMainMenu,
   handleReserveTable,
   handleShowRooms,
   sendMessageAskingPhoneNumber,
-  sendMessageAskingQuantity
+  sendMessageAskingQuantity,
+  sendMessageDoneReservation
   } = require("../utils/chatBotService");
 
 let getWebhook = (req,res,next) => {
@@ -124,18 +125,27 @@ let handleMessage = async (sender_psid, message) => {
   // } 
 
   // checking quick reply
-  // if(message && message.quick_reply && message.quick_reply.payload) {
+  if(message && message.quick_reply && message.quick_reply.payload) {
 
-  //   if(message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" || message. 
-  //    message.quick_reply.payload === "LARGE") {
+    if(message.quick_reply.payload === "SMALL" || message.quick_reply.payload === "MEDIUM" || message. 
+     message.quick_reply.payload === "LARGE") {
 
-  //     // asking about the phone number
-  //     await sendMessageAskingPhoneNumber(sender_psid);
-  //     return;
-  //    }
+      // asking about the phone number
+      await sendMessageAskingPhoneNumber(sender_psid);
+      return;
+     }
+
+     // payload is a phone number | look for the validity of the phone number
+     if(message.quick_reply.payload !== " "){
+
+      // done reservation
+      await sendMessageDoneReservation(sender_psid);
+      return;
+     }
 
 
-  // }
+
+  }
 
   let entity = handleMessageWithEntities(message);
   // let locale = entity.locale;
@@ -146,6 +156,7 @@ let handleMessage = async (sender_psid, message) => {
   }
   else if(entity.name === "phone_number"){
     // handle quick reply message : done reserve table
+    await sendMessageDoneReservation(sender_psid);
 
   }else {
 
@@ -277,14 +288,14 @@ function callSendAPI(sender_psid, response) {
 // handle message with Entities
 let handleMessageWithEntities = (message) => {
   
-  console.log(`The actual message : `, message);
+  // console.log(`The actual message : `, message);
   let entitiesArr = ["datetime", "phone_number"];
   let entityChosen = "";
   let data = {}; // to detect which entities choosen
   entitiesArr.forEach((name) => {
 
     let entity = firstEntity(message.nlp, name);
-    console.log(`Return entity:  ${entity}`);
+    // console.log(`Return entity:  ${entity}`);
     if(entity && entity.confidence > 0.8) {
       entityChosen = name;
       data.value = entity.value;
@@ -308,17 +319,21 @@ let handleMessageWithEntities = (message) => {
 
   
 
-  console.log("------------------------");
-  console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
-  console.log("------------------------");
+  // console.log("------------------------");
+  // console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
+  // console.log("------------------------");
 
    return data;
 }
 
 // Parse an NLP message
 function firstEntity(nlp, name) {
-  console.log(`entities : ${nlp.entities[`wit$${name}: ${name}`]}`);
-  return nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`] && nlp.entities[`wit$${name}:${name}`][0];
+  // console.log(`entities : ${nlp.entities[`wit$${name}: ${name}`]}`);
+  try {
+    return nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`] && nlp.entities[`wit$${name}:${name}`][0];
+  } catch (error) {
+    console.log(`Error occurred : ${error}`);
+  }
 }
 module.exports = {
   postWebhook,

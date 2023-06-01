@@ -670,7 +670,7 @@ let sendMessageAskingQuantity = (sender_psid) => {
                         
                     },{
                         "content_type":"text",
-                        "title":"4-10",
+                        "title":"More than 5",
                         "payload":"LARGE",
                         
                     }]
@@ -731,6 +731,57 @@ let sendMessageAskingPhoneNumber = (sender_psid) => {
       });
     });
 }
+
+let sendMessageDoneReservation = async (sender_psid) => {
+
+    try {
+      let response = {
+          "attachment": {
+              "type": "image",
+              "payload": {
+                  "url": "https://thumbs.gfycat.com/OpenPointlessAndeancondor-size_restricted.gif"
+              }
+          }
+      };
+      
+      await sendMessage(sender_psid, response);
+
+      //get facebook username
+      let username = await getFacebookUsername(sender_psid);
+
+      //send another message
+      let response2 = {
+          "attachment": {
+              "type": "template",
+              "payload": {
+                  "template_type": "button",
+                  "text": `Done! \nOur reservation team will contact you as soon as possible ${username}.\n \nWould you like to check our Main Menu?`,
+                  "buttons": [
+                      {
+                          "type": "postback",
+                          "title": "SHOW MAIN MENU",
+                          "payload": "MAIN_MENU"
+                      },
+                      {
+                          "type":"phone_number",
+                          "title":"☎ HOT LINE",
+                          "payload":"+911911"
+                      },
+                      {
+                          "type": "postback",
+                          "title": "START OVER",
+                          "payload": "RESTART_CONVERSATION"
+                      }
+                  ]
+              }
+          }
+      };
+      
+      await sendMessage(sender_psid, response2);
+  } catch (e) {
+      console.log(e);
+  }
+}
 // Go Back to main menu
 // let goBackToMainMenu = (sender_psid) => {
 //   sendMainMenu(sender_psid);
@@ -787,4 +838,5 @@ module.exports = {
   handleShowRooms,
   sendMessageAskingQuantity,
   sendMessageAskingPhoneNumber,
+  sendMessageDoneReservation
 }
