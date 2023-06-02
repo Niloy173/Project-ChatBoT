@@ -23,10 +23,11 @@ const {sendMainMenu,
   handleShowRooms,
   sendMessageAskingPhoneNumber,
   sendMessageAskingQuantity,
-  sendMessageDoneReservation
+  sendMessageDoneReservation,
+  sendMessageDefaultForTheBot
   } = require("../utils/chatBotService");
 
-const {sendMessageDefaultForTheBot, 
+const {
         sendResponseGreetings,
         sendResponseBye,
         sendResponseThanks
@@ -252,9 +253,11 @@ let handlePostback = async (sender_psid, received_postback) => {
       case "SHOW_ROOMS":
         await handleShowRooms(sender_psid);
         break;
-      // case "SHOW_ROOM_DETAIL":
-      //   await chatBotService.showRoomDetail(sender_psid);
-      //   break;
+
+      case "SHOW_ROOM_DETAIL":
+        await showRoomDetail(sender_psid);
+        break;
+
       case "SHOW_APPETIZERS":
         await sendAppetizer(sender_psid);
         break;
@@ -277,6 +280,10 @@ let handlePostback = async (sender_psid, received_postback) => {
 
       case "BACK_TO_LUNCH_MENU":
         await sendLunchMenu(sender_psid);
+        break;
+
+      case "RESTART_CONVERSATION":
+        await sendMessageDefaultForTheBot(sender_psid);
         break;
 
       case 'yes':
@@ -332,7 +339,7 @@ let handleMessageWithEntities = (message) => {
   entitiesArr.forEach((name) => {
 
     let entity = firstEntity(message.nlp, name);
-    console.log(`Return entity:  ${entity}`);
+    // console.log(`Return entity:  ${entity}`);
     
     if(entity && entity.confidence > 0.8) {
       entityChosen = name;
@@ -347,7 +354,7 @@ let handleMessageWithEntities = (message) => {
   if (message && message.nlp && message.nlp.detected_locales) {
     if (message.nlp.detected_locales[0]) {
         let locale = message.nlp.detected_locales[0].locale;
-        console.log(`locale :`,locale);
+        // console.log(`locale :`,locale);
         data.locale = locale.substring(0, 2)
     }
 
@@ -368,6 +375,9 @@ let handleMessageWithEntities = (message) => {
 function firstEntity(nlp, name) {
   // console.log(`entities : ${nlp.entities[`wit$${name}: ${name}`]}`);
   try {
+
+    console.log('Entities:', nlp.entities);
+    console.log('Traits:', nlp.traits);
 
     if(nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`]){
       return nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`] && nlp.entities[`wit$${name}:${name}`][0];

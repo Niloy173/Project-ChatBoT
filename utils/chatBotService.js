@@ -442,8 +442,126 @@ let handleReserveTable = (sender_psid) => {
 }
 
 let handleShowRooms = (sender_psid) => {
+   
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                            {
+                                "title": "Bull Moose Room",
+                                "subtitle": "The room is suited for parties of up to 20 people",
+                                "image_url": "https://images.unsplash.com/photo-1508424757105-b6d5ad9329d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "SHOW DESCRIPTION",
+                                        "payload": "SHOW_ROOM_DETAIL",
+                                    }
+                                ],
+                            },
 
-}
+                            {
+                                "title": "Lillie Langstry Room",
+                                "subtitle": "The room is suited for parties of up to 30 people",
+                                "image_url": "https://images.unsplash.com/photo-1529022805552-1c88a713c1c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=725&q=80",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "SHOW DESCRIPTION",
+                                        "payload": "SHOW_ROOM_DETAIL",
+                                    }
+                                ],
+                            },
+
+                            {
+                                "title": "Lincoln Room",
+                                "subtitle": "The room is suited for parties of up to 40 people",
+                                "image_url": "https://images.unsplash.com/photo-1508213824875-83a3d36e72a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "SHOW DESCRIPTION",
+                                        "payload": "SHOW_ROOM_DETAIL",
+                                    }
+                                ],
+                            },
+
+                            {
+                                "title": "Go back",
+                                "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "BACK TO MAIN MENU",
+                                        "payload": "BACK_TO_MAIN_MENU",
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "RESERVE A TABLE",
+                                        "payload": "RESERVE_TABLE",
+                                    }
+                                ],
+                            }
+                        ]
+                    }
+                }
+            };
+
+            //send a welcome message
+            await sendMessage(sender_psid, response);
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let showRoomDetail = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try{
+            let response1 = {
+                "attachment": {
+                    "type": "image",
+                    "payload": {
+                        "url": "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjE1ZjM5YWE0MDM5OTc2OTU2MzBhYTBlODYzNWIwOGUzZGZhYzZhMCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/kwIKbt5w6htuSHgWk0/giphy.gif"
+                    }
+                }
+            };
+            let response2 = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "button",
+                        "text": `The room is well suited & furnished for amazing people.`,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "SHOW MAIN MENU",
+                                "payload": "MAIN_MENU"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "RESERVE A TABLE",
+                                "payload": "RESERVE_TABLE",
+                            }
+                        ]
+                    }
+                }
+            };
+
+            await sendMessage(sender_psid, response1);
+            await sendMessage(sender_psid, response2);
+
+            resolve("done!");
+        }catch (e) {
+            reject(e);
+        }
+    })
+};
+
 
 let sendAppetizer = (sender_psid) => {
  
@@ -783,6 +901,52 @@ let sendMessageDoneReservation = async (sender_psid) => {
       console.log(e);
   }
 }
+
+let sendMessageDefaultForTheBot = (sender_psid) => {
+    return new Promise (async (resolve, reject) => {
+        
+        try{
+            let response1 = {
+                "text": "Sorry, I'm just a bot, man ^^ \nYou can test me with all these buttons or try to make a reservation.\n\nThis video may help you to understand me 😉"
+            };
+            //send a media template
+            let response2 = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "media",
+                        "elements": [
+                            {
+                                "media_type": "video",
+                                "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
+                                "buttons": [
+                                    {
+                                        "type": "postback",
+                                        "title": "BACK TO MAIN MENU",
+                                        "payload": "BACK_TO_MAIN_MENU",
+                                    },
+                                    {
+                                        "type": "postback",
+                                        "title": "Start over",
+                                        "payload": "RESTART_CONVERSATION"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            };
+           
+            await sendMessage(sender_psid, response1);
+            await sendMessage(sender_psid, response2);
+            resolve("done");
+        }catch (e) {
+            reject(e);
+        }
+    });
+};
+
+
 // Go Back to main menu
 // let goBackToMainMenu = (sender_psid) => {
 //   sendMainMenu(sender_psid);
@@ -840,5 +1004,7 @@ module.exports = {
   sendMessage,
   sendMessageAskingQuantity,
   sendMessageAskingPhoneNumber,
-  sendMessageDoneReservation
+  sendMessageDoneReservation,
+  showRoomDetail,
+  sendMessageDefaultForTheBot
 }

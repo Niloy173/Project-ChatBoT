@@ -72,13 +72,13 @@ let sendResponseGreetings = (sender_psid, locale) => {
       try {
           let URL = "";
           let text = "";
-          if (locale === "es") {
+          if (locale.includes("es")) { 
               URL = "https://media0.giphy.com/media/eMBKXi56D0EXC/giphy.gif";
               text = `Hola. Bienvenido al restaurante de HaryPhamDev.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else if (locale === "fr") {
+          } else if (locale.includes("fr")) {
               URL = "https://media1.giphy.com/media/26tk02z9fVjkdTCr6/giphy.gif";
               text = `Salut. Bienvenue au restaurant de HaryPhamDev.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else if (locale === "de") {
+          } else if (locale.includes("de")) {
               URL = "https://media2.giphy.com/media/9VrAK7bVIPOl23G4h3/giphy.gif?cid=ecf05e476622fe3568933b2bce30155a6a0d3fc6b6bfe52b&rid=giphy.gif";
               text = `Hallo. Willkommen im Restaurant von HaryPhamDev.\nI'm a chatbot. I can understand the sentences with the meaning: "greetings","thanks" and "bye"\n\nOr you can test me with these button below. Have fun! 😉`;
           } else {
@@ -245,14 +245,10 @@ let sendResponseBye = (sender_psid, locale) => {
   });
 };
 
-let sendMessageDefaultForTheBot = (sender_psid) => {
-
-}
 
 module.exports = {
   setUpMessangerPlatform,
   sendResponseGreetings,
   sendResponseThanks,
-  sendResponseBye,
-  sendMessageDefaultForTheBot
+  sendResponseBye
 }
