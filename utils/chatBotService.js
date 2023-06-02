@@ -907,7 +907,7 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
         
         try{
             let response1 = {
-                "text": "Sorry, I'm just a bot, man ^^ \nYou can test me with all these buttons or try to make a reservation.\n\nThis video may help you to understand me 😉"
+                "text": "Sorry, I'm just a bot, \nYou can test me with all these buttons or try to make a reservation.\n\nThis video may help you to understand me 😉"
             };
             //send a media template
             let response2 = {
@@ -925,11 +925,11 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                                         "title": "BACK TO MAIN MENU",
                                         "payload": "BACK_TO_MAIN_MENU",
                                     },
-                                    {
-                                        "type": "postback",
-                                        "title": "Start over",
-                                        "payload": "RESTART_CONVERSATION"
-                                    }
+                                    // {
+                                    //     "type": "postback",
+                                    //     "title": "Start over",
+                                    //     "payload": "RESTART_CONVERSATION"
+                                    // }
                                 ]
                             }
                         ]

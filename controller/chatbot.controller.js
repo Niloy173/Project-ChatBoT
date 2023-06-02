@@ -19,6 +19,7 @@ const {sendMainMenu,
   sendClassic,
   sendFish,
   sendSalad,
+  showRoomDetail,
   handleReserveTable,
   handleShowRooms,
   sendMessageAskingPhoneNumber,
@@ -159,7 +160,7 @@ let handleMessage = async (sender_psid, message) => {
      if(message.quick_reply.payload !== " "){
 
       user.phoneNumber = message.quick_reply.payload;
-      user.createdAt = moment(Date.now()).zone("+07:00").format('MM/DD/YYYY h:mm A');
+      user.createdAt = moment(Date.now()).utcOffset("+07:00").format('MM/DD/YYYY h:mm A');
 
       //send a notification to Telegram Group chat by Telegram bot.
 
@@ -283,7 +284,7 @@ let handlePostback = async (sender_psid, received_postback) => {
         break;
 
       case "RESTART_CONVERSATION":
-        await sendMessageDefaultForTheBot(sender_psid);
+        await sendGuideToUseBot(sender_psid);
         break;
 
       case 'yes':
@@ -376,16 +377,17 @@ function firstEntity(nlp, name) {
   // console.log(`entities : ${nlp.entities[`wit$${name}: ${name}`]}`);
   try {
 
-    console.log('Entities:', nlp.entities);
-    console.log('Traits:', nlp.traits);
+    // console.log('Entities:', nlp.entities);
+    // console.log('Traits:', nlp.traits);
 
     if(nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`]){
       return nlp && nlp.entities && nlp.entities[`wit$${name}:${name}`] && nlp.entities[`wit$${name}:${name}`][0];
     }else {
-      return nlp && nlp.entities && nlp.traits[`wit$${name}:${name}`] && nlp.traits[`wit$${name}:${name}`][0];
+      return nlp && nlp.entities && nlp.traits[`wit$${name}`] && nlp.traits[`wit$${name}`][0];
     }
   } catch (error) {
-    console.log(`Error occurred : ${error}`);
+    // No entities found
+    // console.log(`Error occurred : ${error}`);
   }
 }
 module.exports = {
