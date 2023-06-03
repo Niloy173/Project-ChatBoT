@@ -917,8 +917,8 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
                         "template_type": "media",
                         "elements": [
                             {
-                                "media_type": "video",
-                                "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
+                                // "media_type": "video",
+                                // "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
                                 "buttons": [
                                     {
                                         "type": "postback",
@@ -943,6 +943,40 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
         }catch (e) {
             reject(e);
         }
+    });
+};
+
+let sendGuideToUseBot = (sender_psid) => {
+
+}
+
+// Show when chat-bot is trying to wrtite something
+let sendTypingOn = (sender_psid) => {
+    return new Promise ((resolve, reject) => {
+       try{
+           let request_body = {
+               "recipient": {
+                   "id": sender_psid
+               },
+               "sender_action":"typing_on"
+           };
+
+           // Send the HTTP request to the Messenger Platform
+           request({
+               "uri": "https://graph.facebook.com/v6.0/me/messages",
+               "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+               "method": "POST",
+               "json": request_body
+           }, (err, res, body) => {
+               if (!err) {
+                   resolve('done!')
+               } else {
+                   reject("Unable to send message:" + err);
+               }
+           });
+       } catch (e) {
+           reject(e);
+       }
     });
 };
 
@@ -1006,5 +1040,7 @@ module.exports = {
   sendMessageAskingPhoneNumber,
   sendMessageDoneReservation,
   showRoomDetail,
-  sendMessageDefaultForTheBot
+  sendMessageDefaultForTheBot,
+  sendGuideToUseBot,
+  sendTypingOn
 }

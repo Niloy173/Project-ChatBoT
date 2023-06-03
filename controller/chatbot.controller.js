@@ -25,13 +25,14 @@ const {sendMainMenu,
   sendMessageAskingPhoneNumber,
   sendMessageAskingQuantity,
   sendMessageDoneReservation,
-  sendMessageDefaultForTheBot
+  sendMessageDefaultForTheBot,
   } = require("../utils/chatBotService");
 
 const {
         sendResponseGreetings,
         sendResponseBye,
-        sendResponseThanks
+        sendResponseThanks,
+        sendGuideToUseBot
 } = require("../utils/homepageService");
 
 let getWebhook = (req,res,next) => {
@@ -183,7 +184,7 @@ let handleMessage = async (sender_psid, message) => {
   else if(entity.name === "phone_number"){
 
     user.phoneNumber = entity.value;
-    user.createdAt = moment(Date.now()).zone("+07:00").format('MM/DD/YYYY h:mm A');
+    user.createdAt = moment(Date.now()).utcOffset("+07:00").format('MM/DD/YYYY h:mm A');
     //send a notification to Telegram Group chat by Telegram bot.
 
     // handle quick reply message : done reserve table
@@ -233,9 +234,9 @@ let handlePostback = async (sender_psid, received_postback) => {
         //send main menu to users
         await sendMainMenu(sender_psid);
         break;
-      // case "GUIDE_BOT":
-      //   await sendGuideToUseBot(sender_psid);
-      //   break;
+      case "GUIDE_BOT":
+        await sendGuideToUseBot(sender_psid);
+        break;
       case "LUNCH_MENU":
         await sendLunchMenu(sender_psid);
         break;
@@ -361,13 +362,15 @@ let handleMessageWithEntities = (message) => {
 
   }
   
-  // console.log(`data: `,data);
+  console.log("------------------------");
+  console.log(`data: `,data);
+  console.log("------------------------");
 
   
 
-  console.log("------------------------");
-  console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
-  console.log("------------------------");
+  // console.log("------------------------");
+  // console.log(entityChosen); // Wheither to detect phone or dateTime from message it will print them otherwise remains empty string
+  // console.log("------------------------");
 
    return data;
 }

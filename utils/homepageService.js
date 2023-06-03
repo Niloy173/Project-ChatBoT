@@ -1,6 +1,6 @@
 const request = require('request');
 
-const {sendMessage} = require("../utils/chatBotService");
+const {sendMessage, sendTypingOn} = require("../utils/chatBotService");
 
 let setUpMessangerPlatform = (PAGE_ACCESS_TOKEN) => {
 
@@ -18,21 +18,24 @@ let setUpMessangerPlatform = (PAGE_ACCESS_TOKEN) => {
               "composer_input_disabled": false,
               "call_to_actions": [
                 
-                  {
-                      "type": "web_url",
-                      "title": "View YouTube Channel",
+                  {/*
+                      "type": "postback",
+                      "title": "",
                       "url": "https://www.originalcoastclothing.com/",
                       "webview_height_ratio": "full"
-                  },
-                  {
-                    "type": "web_url",
-                    "title": "View Facebook Fan Page",
-                    "url": "https://www.facebook.com/profile.php?id=100093249606113",
-                    "webview_height_ratio": "full"
+                */},
+                 {
+                    "type": "postback",
+                    "title": "GUIDE TO USE THIS BOT",
+                    "payload": "GUIDE_BOT",
+                 },{
+                    "type": "postback",
+                    "title": "SHOW MAIN MENU",
+                    "payload": "MAIN_MENU",
                 }, {
                   "type": "postback",
-                  "title": "Restart this conversation",
-                  "payload": "RESTART_CONVERSATION"
+                  "title": "RESERVE A TABLE",
+                  "payload": "RESERVE_TABLE",
                 }
               ]
           }
@@ -137,11 +140,11 @@ let sendResponseThanks = (sender_psid, locale) => {
       try {
           let URL = "https://media3.giphy.com/media/Q7y3K35QjxCBa/giphy.gif?cid=ecf05e47095b476d732d1cc437dc8d5f7746edf2d2857ec2&rid=giphy.gif";
           let text = "";
-          if (locale === "es") {
+          if (locale.includes("es")) {
               text = `De nada! Or you can test me with these button below. Have fun! 😉`;
-          } else if (locale === "fr") {
+          } else if (locale.includes("fr")) {
               text = `Vous êtes les bienvenus!\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else if (locale === "de") {
+          } else if (locale.includes("de")) {
               text = `Bitte!\n\nOr you can test me with these button below. Have fun! 😉`;
           }  else {
               text = `You're welcome!\n\nOr you can test me with these button below. Have fun! 😉`;
@@ -194,11 +197,11 @@ let sendResponseBye = (sender_psid, locale) => {
       try {
           let URL = "https://media0.giphy.com/media/8JIRQqil8mvEA/200.webp?cid=ecf05e479d4d36068fd177fd8823a9f0e813bc694e40a567&rid=200.webp";
           let text = "";
-          if (locale === "es") {
+          if (locale.includes("es")) {
               text = `Adiós!\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else if (locale === "fr") {
+          } else if (locale.includes("fr")) {
               text = `Au revoir!\n\nOr you can test me with these button below. Have fun! 😉`;
-          } else if (locale === "de") {
+          } else if (locale.includes("de")) {
               text = `Tschüss!\n\nOr you can test me with these button below. Have fun! 😉`;
           } else {
               text = `Bye-bye!\n\nOr you can test me with these button below. Have fun! 😉`;
@@ -246,9 +249,72 @@ let sendResponseBye = (sender_psid, locale) => {
 };
 
 
+let sendGuideToUseBot = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let response1 = {
+                "text" : "Hi there! I'm a chatbot building with Node.js platform.\nSo, What can I do? 😎" +
+                    "\n\nFirst, I can show you the restaurant's menu: lunch, dinner and pub menu, etc. " +
+                    "\n\nThen, you can make a reservation. No worry, it isn't a 'real' restaurant. Feel free to test me. 😊"
+            };
+            let response2 = {
+                text: "Second, I can understand the sentences with meaning 'greetings', 'thanks' and 'bye'." +
+                    "\n\nE.g: If you say 'What's up 🇺🇸' or 'hola 🇪🇸' or 'hallo 🇩🇪', I know that it's a 'greetings' sentence. The same thing with 'thanks' and 'bye' sentences." +
+                    "\n\nTry to say: hello, bye, thanks a lot, Bonjour 🇫🇷, etc. you will understand what I mean. 😗"
+            };
+            let response3 = {
+                text:  "Finally, remember I'm just a bot. So, That 's what can do for you today. 🤠" +
+                    // "\n\nBuild this bot from scratch with Node.js:👇" +
+                    // "\nCheck Out: \n👉 any url "
+                    "\n\nCheck out below menu for more details 👇"
+            };
+            let response4 = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "button",
+                        "text": `Back to main menu or make a reservation ?`,
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "SHOW MAIN MENU",
+                                "payload": "MAIN_MENU"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "RESERVE A TABLE",
+                                "payload": "RESERVE_TABLE",
+                            }
+                        ]
+                    }
+                }
+            };
+
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response1);
+            
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response2);
+           
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response3);
+            
+            await sendTypingOn(sender_psid);
+            await sendMessage(sender_psid, response4);
+
+            resolve("done");
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+
 module.exports = {
   setUpMessangerPlatform,
   sendResponseGreetings,
   sendResponseThanks,
-  sendResponseBye
+  sendResponseBye,
+  sendGuideToUseBot
 }
